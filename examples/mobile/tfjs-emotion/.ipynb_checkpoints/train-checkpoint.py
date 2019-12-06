@@ -80,9 +80,9 @@ val_faces /= 255.
 model = tf.keras.Sequential()
 model.add(tf.keras.layers.Conv2D(32, (3,3),input_shape=input_shape,activation='relu')) #only input_shape on first layer
 model.add(tf.keras.layers.MaxPooling2D())
-model.add(tf.keras.layers.Conv2D(64, (3,3),activation='relu'))
+model.add(tf.keras.layers.Conv2D(64, (3,3),input_shape=input_shape,activation='relu')) #only input_shape on first layer
 model.add(tf.keras.layers.MaxPooling2D())
-model.add(tf.keras.layers.Conv2D(10, (1,1),activation='relu'))
+model.add(tf.keras.layers.Conv2D(10, (1,1),input_shape=input_shape,activation='relu')) #only input_shape on first layer
 model.add(tf.keras.layers.Flatten())
 model.add(tf.keras.layers.Dense(64, activation="relu"))
 model.add(tf.keras.layers.Dense(num_classes, activation="softmax"))

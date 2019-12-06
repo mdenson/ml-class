@@ -9,7 +9,6 @@ import time
 import wandb
 from wandb.keras import WandbCallback
 
-#run = wandb.init(project="emotion-120619")
 run = wandb.init()
 config = run.config
 
@@ -76,16 +75,10 @@ train_faces /= 255.
 val_faces /= 255.
 
 # Define the model here, CHANGEME
-# convert to cnn
-model = tf.keras.Sequential()
-model.add(tf.keras.layers.Conv2D(32, (3,3),input_shape=input_shape,activation='relu')) #only input_shape on first layer
-model.add(tf.keras.layers.MaxPooling2D())
-model.add(tf.keras.layers.Conv2D(64, (3,3),activation='relu'))
-model.add(tf.keras.layers.MaxPooling2D())
-model.add(tf.keras.layers.Conv2D(10, (1,1),activation='relu'))
-model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(64, activation="relu"))
-model.add(tf.keras.layers.Dense(num_classes, activation="softmax"))
+inp = tf.keras.Input(input_shape)
+x = tf.keras.layers.Flatten()(inp)
+x = tf.keras.layers.Dense(num_classes, activation="softmax")(x)
+model = tf.keras.Model(inp, x)
 model.compile(optimizer='adam', loss='categorical_crossentropy',
               metrics=['accuracy'])
 
